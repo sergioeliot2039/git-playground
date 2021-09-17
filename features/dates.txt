@@ -1,0 +1,31 @@
+
+const API_URL = "https://slack.com/api/files.upload";
+const SLACK_API_TOKEN = auths.slack.oauth_access_token;
+const CHANNEL = params.channels;
+
+await (async () => {
+  const buffer = Buffer.from(steps.preparefiletoupload.screenshot, "base64");
+  
+  const data = {
+    url: API_URL,
+    formData: {
+      channels: CHANNEL,
+      file: {
+        value: buffer,
+        options: {
+          filename: "test.png",
+        }
+      },
+      filename: "test.png",
+      filetype: "image/png",
+      token: SLACK_API_TOKEN,
+    }
+  };
+  request.post(data, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+    } else {
+      console.log(error);
+    }
+  });
+})();
