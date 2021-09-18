@@ -1,1 +1,1 @@
-hey
+JSON.parse(obj);
